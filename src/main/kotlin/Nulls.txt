@@ -1,0 +1,25 @@
+Nulls Notes
+val name = "Andrew" or name = null if it's nullable
+
+?. Safe call
+    name?.length
+    -> only use if you don't mind getting null
+
+?: Elvis operator
+    val nameLength = name?.length ?: -1
+    it's like a turnary operator
+    left side gets returned if not null
+    right side if it is null
+
+!! non-null assertion
+    only use if you are sure it's not going to be null
+
+.let {}
+    val name: String? = "Kotlin"
+    name?.let {
+    println("The length of the name is ${it.length}")
+    }
+
+    .let will only run if name is not null
+
+? after type makes it nullable and you have to handle it

@@ -1,0 +1,44 @@
+http verbs
+    GET, PUT, POST, DELETE
+
+http methods
+reading data are GET and HEAD(not really used)
+GET is safe meaning it doesn't change the state of the server
+GET is idempotent - meaning identical request can be made repeatedly with the same effect and the state will remain unchanged
+
+API's expose a set of urls called endpoints
+it can get many resources together
+
+url parameters in the url are passed in after a question mark also known as a query parameter
+
+http methods to change data are DELETE, POST, PUT, PATCH
+delete does that by a requesting a specific resource to be deleted and would be passed as an id in the parameters.
+the delete method does not have a body with the request
+
+POST method
+    requires a request body
+    used to create data on a server
+    the method body is what is posted to the server. It can have many structures and types
+
+PUT, PATCH
+    are used to modify existing resources on a server
+
+Moshi and Jackson are used to parse the api response They are the Serializers that do it.
+server and client need to be speaking the same language. Most common is JSON and XML
+JSON is used because it is language agnostic. the client just needs a library to parse it.
+The data is parsed into one of our data models in the application code, such a data class in kotlin
+
+Data converters are used translate data that can be used by the other side. They are also referred to as Serializations/Serializers
+concurrent or using different threads is asynchronous programming Kotlin uses co-routines
+
+App runs as a single process on your phone
+a process can contain many threads
+It will have one main thread and many background threads
+when an expensive task needs to be done, like an api call. It is punted to another thread. and handled there by a co-routine. It
+is async from the main thread
+
+need to make data models that match the json from the server you want it to look like
+
+create an interface for retrofit to work this subs out the call with the GET annotation
+
+
