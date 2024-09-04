@@ -14,3 +14,8 @@
     in order to get the response you are expecting.
     you will then map the response to a normalizer function which will return the data to the client 
     in the structure and format it is expected
+
+**Normalizer:**
+    
+    mapped from the processor the function processes and formats the data and then passes it over to the client
+    the client model is what it is expected to be.

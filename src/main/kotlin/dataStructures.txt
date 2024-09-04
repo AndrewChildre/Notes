@@ -1,0 +1,39 @@
+Data Structures:
+    a particular way of organizing and storing data in a computer
+    so that it can be accessed and modified efficiently
+
+    Two types:
+        Linear Data Structures:
+            Array: A collection of elements identified by index or key
+            Linked List: A linear collection of nodes, where each node contains data and a reference (link) to the next node in the sequence
+            Stack: A collection that follows the Last-In-First-Out (LIFO) principle
+            Queue: A collection that follows the First-In-First-Out (FIFO) principle
+        Non-Linear Data Structures:
+            Tree: A hierarchical structure with nodes connected by edges, where each node has a parent and zero or more children
+            Graph: A collection of nodes (vertices) connected by edges, where relationships between nodes can be more complex than trees
+            Heap: A special tree-based data structure
+
+    Operations in a data structure:
+        Insertion, Deletion, Traversal, Searching, Sorting
+
+    Use Cases:
+        Array:
+            Fast access if the index is known
+            Used when the size of the data is known and fixed
+        Linked List:
+            Efficient Insertion and delete operations
+            Good for dynamic data when the size frequently changes
+        Stack:
+            Used for function call management, expression evaluation, and back tracking algos.
+        Queue:
+            Used in scheduling, and managing requests in a first come, first served order.
+        Tree:
+            Used in databases, hierarchical data representation, and efficient searching and sorting
+        Graph:
+            used in network routing, social networks, and complex data relationships
+        Heap:
+            Used in priority queues, and algos like heap sort.
+
+    Complexity considerations:
+        Time Complexity: How the time to perform operations scales with the size of the data.
+        Space Complexity: How the memory requirement scales with the size of the data.
