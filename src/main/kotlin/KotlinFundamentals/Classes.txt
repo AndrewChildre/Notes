@@ -1,0 +1,18 @@
+Kotlin Classes
+
+    Class properties
+        val or var in the constructor makes them properties
+
+        properties outside the constructor/ in the body of the class must be initialized
+
+        If no val/var in the constructor you will not have access to it outside of the class
+
+        properties in the constructor can be initialized in an init {} block / the init is called after the values in the constructor are set
+
+        methods in the class have access to properties of the class
+
+    Abstract
+        can have constructors
+        open by default meaning you can inherit from it without the open keyword.
+        other classes that inherit from abstract must implement all the abstract methods and abstract properties in
+        the base abstract class.

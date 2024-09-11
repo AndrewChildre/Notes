@@ -1,0 +1,69 @@
+Higher Order functions and lambdas
+
+    Functions as arguments:
+        fun foo(bar: Int, action: (Int)->Unit) {}
+
+        fun someFunction(num: Int){} //Some function can be passed to foo because it matches the signature for it
+
+        foo(23, { a -> someFunction(a) }) when you pass a function as an argument, you wrap it in curly braces
+
+        foo(23) { a -> someFunction(a) } if the function parameter is the last parameter you can move it outside of the parens
+
+        foo(23, {someFunction(it)}) you don't have to declare the variable like above, if it only has one. You can use "it"
+
+        foo(23) {someFunction(it)} the compiler already knows what it is
+
+       Can also do in-line code aka lambda
+        foo(23, { a -> do something with a here })
+        foo(23) {do something with "it" here}
+
+  Function References:
+        fun foo(bar: Int, action: (Int)->Unit) {}
+
+        class Bar {
+            someOtherFunction() {}
+        }
+        fun someFunction(){}
+
+        foo(23, ::someFunction) scoping operator this is at the top level, it's not in a class
+
+        val b = Bar()
+        foo(23, b::someOtherFunction) this is in the Bar class
+
+    Fibonacci example:
+
+        calling Fib:
+            fibonacci(8,{ println(it)})
+            fibonacci(8) { println(it)}
+            fibonacci(8) {n -> println(n)} n here is the value getting passed to the println function
+                    don't get confused here "it" is not 8 or the first parameter it is "current" coming out of the for loop where actio is called
+                    // the second parameter is the action function println doesnt return a value but it's getting passed "current" which is an Int
+
+            fun fibonacci(limit: Int, action: (Int) -> Unit) {
+                var prev = 0
+                var prevprev = 0
+                var current = 1
+
+                for (i in 1..limit) {
+                    action(current)
+
+                    var temp = current
+                    prevprev = prev
+                    prev = temp
+                    current = prev + prevprev
+                }
+            }
+    Line Logger function example:
+        fun lineLogger(block: ()->{}){
+        repeat(5){println("-------")
+        block()
+        println("done")
+        }
+
+    call lineLogger
+            linelogger {
+            println("message")
+            }
+            lineLogger is called here with a lambda....it does not need the perens when called because of the function parameter
+            the curly braces is what calls the lambda it could be lineLogger({println("message")}) but it removes it for the kotlin language
+

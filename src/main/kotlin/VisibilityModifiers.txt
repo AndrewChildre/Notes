@@ -1,0 +1,6 @@
+Visibility Modifiers
+
+    public -> is the default all can have access
+    protected -> visible in the subclass from the parent class, but not another class
+    internal -> visible within the same module
+    private -> only visible and have access to within the same class

@@ -1,0 +1,15 @@
+Inheritance / Derivation
+
+    represents things
+    represents a "isA" relationship
+    Example below
+    spaceBody -> planet -> habitable planet
+
+    By default classes in kotlin are "final" meaning that you can't inherit from them, unless you mark them as "open"
+
+    FYI: In java it is the opposite classes and methods are open by default and you have to final/seal/close them
+
+    override keyword is letting you know that you are overriding something from the base class
+    when using super keyword it's calling the base class and not the one above it. because the ones above it may have
+    overrides as well
+
