@@ -1,0 +1,6 @@
+MSL Specifics
+
+Normalizer:
+
+Yaml labels are passed in the constructor of the class / they are auto wired by spring
+Responses from the backend server are passed in as function arguments

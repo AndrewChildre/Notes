@@ -1,0 +1,21 @@
+Enums
+
+they are constants the values don't change
+most common use is with the "when" statement
+enum class ErrorCodes(val error: Int) {
+    NONE(0), UNK(400), LOST(743)
+}
+val errorCode = ErrorCodes.NONE
+
+has default properties
+    name: what you named it
+    ordinal: 0,1,2 like the index value
+has default methods
+    errorCode.values() will give you a list of values
+    errorCode.valueOf() <- can put the value of one of the enums in it.
+
+errorCode.name would be NONE
+errorCode.ordinal would be 0 like an index
+
+you can add a constructor to the enum class like above "error"
+all the enums in the body would need to implement/add a value for that like above

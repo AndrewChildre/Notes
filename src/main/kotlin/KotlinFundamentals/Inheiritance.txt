@@ -13,3 +13,5 @@ Inheritance / Derivation
     when using super keyword it's calling the base class and not the one above it. because the ones above it may have
     overrides as well
 
+    One object acquires all the properties from the parent
+

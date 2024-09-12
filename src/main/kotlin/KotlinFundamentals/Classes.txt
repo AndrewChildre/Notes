@@ -11,8 +11,11 @@ Kotlin Classes
 
         methods in the class have access to properties of the class
 
-    Abstract
-        can have constructors
-        open by default meaning you can inherit from it without the open keyword.
-        other classes that inherit from abstract must implement all the abstract methods and abstract properties in
-        the base abstract class.
+        If you are not going to initialize a property use can ust late init. but you have to make sure that you actually do it.
+
+       class Properties are val/var
+       class members are functions within a class
+
+
+
+

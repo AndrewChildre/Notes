@@ -1,0 +1,10 @@
+    Abstract Classes
+        Kind of like an interface
+            it's a placeholder where it provides a set of methods and properties that are partially defined
+            other classes that inherit from abstract must implement all the abstract methods and abstract properties in
+            the base abstract class.
+        Can have constructors
+        open by default meaning you can inherit from it without the open keyword.
+
+        Abstract methods don't have a body
+        Can't be instanced must be inherited and then overridden in the child class

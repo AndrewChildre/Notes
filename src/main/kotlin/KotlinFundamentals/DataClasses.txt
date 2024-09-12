@@ -1,0 +1,16 @@
+Data Classes
+
+Holds a set of data usually in the constructor and doesn't have logic.
+it deals with the data in the object not the object itself
+must have at least one constructor property val/var
+has copy function to update the values in it. In the copy need to reassign it to get the new value the original stays the same
+Modeling data without caring about the behavior.
+getting data from something and modeling it to something else
+If the property/value is declared outside the constructor it is not evaluated in the equality check
+
+destructured
+ val andrew = Person("Andrew", 55)
+ val (name, age) = andrew
+ takes out the parameters in the data class, you can name them anything you eant
+
+

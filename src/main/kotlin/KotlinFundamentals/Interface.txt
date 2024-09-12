@@ -1,0 +1,7 @@
+Interface
+
+    Can't have a constructor
+    Set of method definitions that we need to implement in some way
+
+    classes have a "isA" relationship / where interfaces have a "hasA" relationship
+    planet -> isA spaceBody / where planet hasA speedCalculator or hasA logger
