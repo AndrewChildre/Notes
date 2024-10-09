@@ -1,0 +1,45 @@
+Objects
+
+    Don't have to have a name like a class does in the expression
+    object declaration: like example2 or example3 //  only has one instance and is initialized when it is first accessed
+    objects don't have constructors
+    you initialize the properties and methods in the body of the object
+    example1 is an object expression/instance
+    making something as a companion object in the class makes the methods inside that object accessible to the outer class methods and properties
+    use object keyword instead of class keyword, but use the same as you would in building a class definition
+
+
+example1 expression/instance:
+    val simple = object {
+        val name = "frank"
+        fun printName () { printLn(name }
+        }
+
+    use
+        simple.printName
+
+example2 Singleton:
+    object Logger {
+        fun debug(message: String){do stuff}
+    }
+
+    class Person {
+        fun doWork () {
+            Logger.debug("deBug message here")
+        }
+        companion object Logger {
+            fun doThings() {
+            println("doing things")
+            }
+        }
+    }
+    }
+
+example 3:
+    object NetworkInfo {
+    }
+
+    like statics in other languages / meaning calling it through the class name
+
+
+

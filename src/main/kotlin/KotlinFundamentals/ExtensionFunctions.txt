@@ -1,0 +1,14 @@
+Extension Functions
+
+    fun String.pad (numberToReplace: Int, replacementChar: Char = " "): String {
+            val strToAdd = replacementChar.toString().repeat(numberToReplace)
+                    return original + strToAdd
+    }
+
+    val original = "andrew"
+    original.pad(5, '#')
+    adding functions to a class you don't own
+    makes code easier to read
+    A "Receiver" is a value made implicitly(meaning it's implied to be there and available)
+   "this" is the value/values of the receiver
+   in the function above the receiver is "original"

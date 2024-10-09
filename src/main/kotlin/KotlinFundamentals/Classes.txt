@@ -5,7 +5,7 @@ Kotlin Classes
 
         properties outside the constructor/ in the body of the class must be initialized
 
-        If no val/var in the constructor you will not have access to it outside of the class
+        If no val/var in the constructor you will not have access to it outside the class
 
         properties in the constructor can be initialized in an init {} block / the init is called after the values in the constructor are set
 

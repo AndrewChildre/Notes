@@ -11,6 +11,6 @@ If the property/value is declared outside the constructor it is not evaluated in
 destructured
  val andrew = Person("Andrew", 55)
  val (name, age) = andrew
- takes out the parameters in the data class, you can name them anything you eant
+ takes out the parameters in the data class, you can name them anything you want
 
 

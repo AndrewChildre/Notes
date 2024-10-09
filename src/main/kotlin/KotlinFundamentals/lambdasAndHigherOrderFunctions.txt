@@ -1,11 +1,14 @@
 Higher Order functions and lambdas
+    Notes:
+       to pass a function as an argument, you wrap it in curly braces in the function parameters
+
 
     Functions as arguments:
         fun foo(bar: Int, action: (Int)->Unit) {}
 
         fun someFunction(num: Int){} //Some function can be passed to foo because it matches the signature for it
 
-        foo(23, { a -> someFunction(a) }) when you pass a function as an argument, you wrap it in curly braces
+        foo(23, { a -> someFunction(a) }) //when you pass a function as an argument, you wrap it in curly braces
 
         foo(23) { a -> someFunction(a) } if the function parameter is the last parameter you can move it outside of the parens
 
