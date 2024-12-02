@@ -1,17 +1,29 @@
 Inheritance / Derivation
 
+    The subclasses get the state and behavior of the base class
+    we do this because we may want to add to the state or change the behavior in the subclass
+
     represents things
-    represents a "isA" relationship
+    represents a "isA" relationship in the classes
     Example below
     spaceBody -> planet -> habitable planet
 
-    By default classes in kotlin are "final" meaning that you can't inherit from them, unless you mark them as "open"
+    By default, classes in kotlin are closed "final" meaning that you can't inherit from them, unless you mark them as "open"
 
-    FYI: In java it is the opposite classes and methods are open by default and you have to final/seal/close them
+    FYI: In java it is the opposite classes and methods are open by default, and you have to final/seal/close them
 
     override keyword is letting you know that you are overriding something from the base class
     when using super keyword it's calling the base class and not the one above it. because the ones above it may have
     overrides as well
 
-    One object acquires all the properties from the parent
+    One object acquires all the properties from the parent unless it's private in the base class
+    If you want to override a method or property from the base class it needs to be marked as open. And you need to use the override
+    keyword in the base class
+
+    You can only inherit from a single base class
+    you have to be careful when changing the base class it could break the classes that inherit from it or that are below it
+    that's why you have to explicitly inherit for it
+
+    when you are dealing with constructors you have to pass the values up if the Person class at the top has a val name: String
+    property and you inherit in the Student class the Student class needs to pass the name up to the Person class
 

@@ -1,0 +1,11 @@
+Useful Information
+
+    Open blank diff window
+        CMD Shift A
+        type Open Blank diff window
+
+    diff colors
+        Green = Added
+        BLue = Modified
+        Gray = Deleted
+

@@ -1,6 +1,30 @@
 Kotlin Classes
 
+    Classes are basic units in kotlin. Templates for creating objects
+
+    They provide initial value for "state", meaning the class member variables and
+
+    Implementation of "Behavior", meaning the class member functions/methods
+
+    A Class is a collection of state and the behavior that works on the state
+
+    A reasonable way to structure your code
+
+    Classes are public by default
+
+    In Java classes have to be in there own file, Kotlin can have many
+
+    Use "." to access the properties of the object
+
+    private modifier means they only have access to methods with in the class
+
+    Encapsulate state and behavior
+
+
     Class properties
+
+        define the state of an instance for an object/class
+
         val or var in the constructor makes them properties
 
         properties outside the constructor/ in the body of the class must be initialized
@@ -14,7 +38,22 @@ Kotlin Classes
         If you are not going to initialize a property use can ust late init. but you have to make sure that you actually do it.
 
        class Properties are val/var
-       class members are functions within a class
+       class members are functions/methods within a class
+
+    Class Methods
+        define the behavior of an instance of an object
+        methods have access to the properties of the class aka they have access to the state
+        When calling a method, it's passed a reference of the object we are calling the method on.
+        And that is known as "this"
+        it's a reference to the object were calling the method on
+        To call the method you must first have an instance of the class
+        the name of the variable is what is referencing the current object meaning this, and your calling it through the variable name
+        Methods/functions can call other methods within the same class
+
+        the word "this" is referring to what is in the object not the parameters
+        "this" meaning this objects values
+
+
 
 
 

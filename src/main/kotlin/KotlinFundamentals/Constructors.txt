@@ -1,0 +1,15 @@
+Constructors
+initializes data
+ lets you initialize objects/classes into a known valid state
+ lets you set properties with a value, can have a default in the constructor
+ constructors only take data
+ use val or var in the constructor
+ they are values defined in the constructor
+ they are the properties of the object
+ if you use the "constructor" key word, you then can use modifiers
+ class Person private constructor(val name: String) -> this would be to make the whole constructor private
+ you can use modifiers on each property in the constructor if needed
+ If it's private you can initialize the class, but won't have access to it outside the class
+ you can use annotations for the constructors. for uses when you're using DI frameworks @Inject
+
+ lateinit used in tests and when you want to define without making it nullable

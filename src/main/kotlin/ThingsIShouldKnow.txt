@@ -1,0 +1,8 @@
+The +=
+var calories = 0
+fun updateCalories() { calories += 10 }
+adds the value on the right side to the variable and updates the value
+it's shorthand for calories + 10 = calories or calories = calories + 10
+
+null
+if you do a calculation with a value that has null it will be null

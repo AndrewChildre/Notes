@@ -1,0 +1,37 @@
+Collections
+Immutable
+listOf
+setOf
+mapOf
+
+can make mutable
+mutableListOf()
+then you can use .add() or other functions on the variables if needed
+
+map of
+mapOf(1 to Person("andrew"), 2 to Person("Frank"))
+print the index and value in the map
+    for ((index, per) in people){
+        println("Index $index Name ${per.name}")
+    }
+
+functional style
+    calling a method on a collection that returns another collection.
+    like using map and filter map transforms the collection and filter, filters out unwanted items.
+
+Predicates
+    any, all, count, find
+    these will return a boolean, the lambda function that is called on it.
+
+    val numbers = listOf(10, 23, 3, 42, 51, 123, 6, 8, 99)
+    numbers.any{it > 99} true
+    val allGreater = numbers.all { it > 50 } false
+
+filter
+    numbers.filter { it > 50 }
+    will give you back a list of all the numbers > 50
+
+map
+     greater50.map { it * 2 }.forEach{ println(it) }
+     map is transforming the original value here it is multiplying by 2
+     you can also change the type in the map i.e. change from a list of Int to a list of string

@@ -1,0 +1,9 @@
+Visibility Modifiers
+
+    public -> is the default in kotlin all can have access, meaning all classes have access to the properties and methods of the class
+    protected -> visible in the subclass from the parent class, but not another class
+    internal -> visible within the same module
+    private -> only visible and have access to within the same class
+
+    for methods and properties
+    you do it for encapsulation to allow access to only certain things with in the class

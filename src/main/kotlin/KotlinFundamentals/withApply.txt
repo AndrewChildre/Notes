@@ -1,0 +1,24 @@
+With and apply
+
+class Meeting(val name: String, val time: DateTime, var who: mutabuleList)
+
+val boardMeeting = Meeting(name="Andrew", time=DateTIme.now, who= mutableListOf("Frank", "Steve"))
+
+boardMeeting.name = "Steve2"
+boardMeeting.time = 12:30
+boardMeeting.who.add("John")
+
+you can do
+with(boardMeeting) {
+who.add("John")
+time = 12:30
+name = "Steve2"
+}
+
+also
+boardMeeting.apply {
+who.add("John")
+time = 12:30
+name = "Steve2"
+}.create()
+Apply you can add/chain functions to the end of it

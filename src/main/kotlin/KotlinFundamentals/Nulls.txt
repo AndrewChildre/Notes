@@ -4,6 +4,7 @@ val name = "Andrew" or name = null if it's nullable
 ?. Safe call
     name?.length
     -> only use if you don't mind getting null
+    if name is null the length function won't get called you will just get null
 
 ?: Elvis operator
     val nameLength = name?.length ?: -1

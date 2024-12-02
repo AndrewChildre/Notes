@@ -1,0 +1,12 @@
+
+git fetch -> updates all remote tracking branches, so you can see any new branches added on the remote, without affecting your working branch.
+does not merge
+git pull -> it doesn't get the new branches on remote it only affects the branch you’re on, fetching and merging changes for that branch specifically
+It can cause merge conflicts.
+
+Merge Main
+ git fetch origin
+ git merge origin/main
+ git push
+    you don't need git commit because when git merges it. It does its own commit.
+    you would need a git commit if there are conflicts that needed to be resolved.
