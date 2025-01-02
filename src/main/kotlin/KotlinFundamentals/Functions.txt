@@ -9,7 +9,7 @@ regular function
     Default values in function use "=" then the value in the function definition, it's the common case. you can leave it
         as the or updated it when you call/use it.
     Named parameters
-        are used in the function when calling it. Your just using the name of the parameter and an "="
+        are used in the function when calling it. You're just using the name of the parameter and an "="
         just to make it more clear. You don't have to pass them in the same order if you don't want to.
     Overloading a function is defining another function and adding or changing the parameters
 

@@ -6,3 +6,9 @@ it's shorthand for calories + 10 = calories or calories = calories + 10
 
 null
 if you do a calculation with a value that has null it will be null
+
+Polymorphism
+    The ability to treat derived/inherited types as if it was the base type
+
+State
+    represents the data that currently appears and how it behaves at that point in time of the object that has been created

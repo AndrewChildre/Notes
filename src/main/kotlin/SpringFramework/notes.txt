@@ -1,0 +1,141 @@
+Spring framework
+    Collection of libraries that are built on top of the base framework
+    MSL uses mostly the base framework and the spring boot library
+    usually used in layered architecture.
+
+        User Interface - device
+        Web layer - Deals with http requests from the UI
+        Business layer - calls data layer to deal with and work with the data
+        Data layer - usually some kind of database
+
+    Spring framework and spring boot helps to concentrate on the business logic instead of boilerplate and low level code
+    spring boot helps provide everything needed to config and run the app
+
+    Spring concept is a component based app using dependency injection (DI) and IoC
+    The components in spring that are managed by the framework are called beans
+    The application is components working together managed by spring
+
+    The Business layer uses the objects it gets from the data layer to get the data it needs
+    When using spring it manages the objects' life cycle, so you don't have to worry about it
+    example in kotlin
+    fun orderService(repo: OrderRepository) { processOrder(repo) }
+    the repo parameter is a DI of the order service using spring it will create the object
+
+    DI is the implementation of the framework
+    IoC is a concept where we are handing control of the object management over to the framework
+    The spring application context provides the components/objects/classes it is responsible for how they are wired together
+    and there lifecycle they are the "beans"
+    Spring provides the metadata needed to use to wire beans together like @Component or @Service
+
+    Def: Data Access Object
+        to read or write data
+    Spring helps with cross-cutting. meaning that you classes and method will stay with a single purpose they won't need to deal
+    with managing error/success cases the framework helps you deal with that so you can concentrate on the business logic
+
+    Spring MVC
+        Deals with the low level details of the http requests/responses
+        runs on top of the servlet api spring gives more control and details than the servlet does
+        receive http requests from clients
+        processes requests and generates responses
+        sends back to clients
+        acts as an intermediary between the client request and the server side app logic
+        the base servlet api doesn't make sense of what the request is about. The spring helps with this
+
+        MVC is a design pattern
+        Model = manages data and business logic data representations of the apps data. I think the model is the data class model
+        View = handles the presentation and UI, in the case of MSL the view layer would be the returned json
+        Controller = manages the communication between the model and the view
+
+        Some annotations used with consideration to this design pattern
+        @Controller
+        Controllers define the rest mapping and handle the requests and responses
+            to handle the incoming request
+        @Service
+            handles the business logic and transformation of it.
+        @Repository
+            for data models and databases
+
+    Def: Data Transfer Object = an object used to carry data between processes or layers of an application
+        I'm trying to think about it as the data class models in the labels/bscs/normalizers
+        The model classes get serialized/deserialized between the requests and responses
+
+    Data layers
+        have data classes
+        encapsulates database logic
+        provides an interface for the operations on the data
+        isolates the data from the business logic
+    Service Layers
+        entry point for business logic
+        implements the use cases that the application supports/needs
+        implements the retrieval from the data source
+
+    @Service
+        msl uses @Compnent for most of the @Service implementation
+        tells the framework to make object/beans available at run time, so it's available to be used with in the application context
+        and can be used for dependency injection at run time
+        a service level bean would be responsible for mapping and performing data transformations
+    @Component
+        makes sure that spring is managing the beans in the class
+        Using this annotation you enable the DI and IoC capabilities
+
+    @Autowired
+        Used to inject the dependency of one bean to another
+        used for DI objects/components into controllers constructors automatically
+        used at class level usually, can use at filed level with in the class but may be considered bad practice
+        a lot of the time you don't need the annotation sping will auto inject it.
+
+    @PathVariable
+        used for path variables in the request
+        binds the parameter to the URL/URI
+        the mapping and parameter naming need to match
+        @GetMapping("/{accountNumber}")
+        fun getBank(@PathVariable accountNumber: Int)
+
+    Restful web service
+        @RestController
+        Simplifies creation of Restful apis with the boilerplate code
+        Automatically converts object to json data for the requests and respones using json
+        Keeps controller level simpler
+
+        @RequestMapping
+        Usually used at the class level to define a base path
+        @RequestMapping("api/banks") would be a base path at the top of the class
+
+        @GetMapping
+        maps requests to a specific handler
+        can be used at the class or method level to define routing
+        is get request there are other annotations like POST DELETE etc
+        @GetMapping("/moreBanks") would be appended to the base path
+
+
+       @PostMapping
+       used in posting/sending data and creating a new object/resource
+       implementation
+       @PostMapping
+       fun addBank(@RequestBody newBank: BankDTO)
+       the request body is the info you are sending to the server
+       usually used with the @ResponseStatus annotation
+
+       @ResponseStatus
+        used in the controller class
+        usage
+            @ResponseStatus(HttpStatus.NO_CONTENT)
+            using this to change the success response code. If the server is sending a 200, and I want a 204
+            I can use the annotation above to change it. This is used for successful responses only, If your getting an
+            exception. It would need to be handled another way. Like with the @ExceptionHandler annotation.
+
+        @Bean
+            Is used at the method level in configuration classes, defines and registers the bean in the application context
+            Used with the @Configuration annotation. In MSL It looks like it's creating the labels object from the yaml file
+            among other things
+
+        @RequestHeader
+            Used to map request headers to a controller method parameter. Allows extraction of http request headers and
+            to use them in the controller method
+            Example:
+                fun getInvoiceHome(@RequestHeader(ClientService.ACCOUNT_TOKEN) accountToken: AccountToken)
+
+                The accountToken is what you would use when you need the extracted value
+
+
+

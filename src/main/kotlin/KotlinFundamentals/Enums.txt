@@ -7,6 +7,13 @@ enum class ErrorCodes(val error: Int) {
 }
 val errorCode = ErrorCodes.NONE
 
+when (errorCode) {
+    ErrorCodes.NONE -> "none"
+    ErrorCodes.UNK -> "unknown"
+    ErrorCodes.LOST -> "Lost"
+}
+when needs to have all the values handled, or it won't compile
+
 has default properties
     name: what you named it
     ordinal: 0,1,2 like the index value

@@ -1,12 +1,13 @@
 Sealed Classes
 
-restricted class
+restricted class closed set
+The sealed top level class itself can't be instanced
 it can have its own constructor, then all the subclasses need the constructor parameter from the top level class in there
 constructor as well
 provides control over the inheritance
 all subclasses are known at compile time
 you have a base class that is sealed and then other classes that inherit from it.
-used in "when" clause
+used in "when" clause (may have to use "is" before is AppError.NetworkError ->
 the compiler knows how many sub classes there are and need to handle each when using "when"
 you have access to the methods and properties in each class at that part of the when statement handler.
 

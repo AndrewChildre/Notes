@@ -1,6 +1,6 @@
 With and apply
 
-class Meeting(val name: String, val time: DateTime, var who: mutabuleList)
+class Meeting(val name: String, val time: DateTime, var who: mutableList)
 
 val boardMeeting = Meeting(name="Andrew", time=DateTIme.now, who= mutableListOf("Frank", "Steve"))
 

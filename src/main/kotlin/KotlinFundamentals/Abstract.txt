@@ -1,10 +1,22 @@
-    Abstract Classes
+
+    Abstraction def
+        sometimes a class doesn't represent a concrete thing, they may represent an "idea" in OO terms an abstraction
+        the idea of a game is abstract, where the concrete/ implementation would be a soccer game.
+        concrete things are represented by classes. Abstract things are represented by abstract classes.
+
+        Abstract Classes
+        Can't be instanced
         Kind of like an interface
             it's a placeholder where it provides a set of methods and properties that are partially defined
-            other classes that inherit from abstract must implement all the abstract methods and abstract properties in
+           -> other classes that inherit from abstract must implement all the abstract methods and abstract properties in
             the base abstract class.
         Can have constructors
         open by default meaning you can inherit from it without the open keyword.
+        Remember to use the "override" keyword when implementing the abstract properties and methods
 
         Abstract methods don't have a body
-        Can't be instanced must be inherited and then overridden in the child class
+        Can't be instanced, must be inherited and then overridden in the child class
+        open by default
+        all about modeling what you want
+        a val can be of type of abstract class. then you can implement a class that inherits from the abstract class
+        that way the top level class is inherited from a bunch of subclasses, and you can implement any of them that inherits them

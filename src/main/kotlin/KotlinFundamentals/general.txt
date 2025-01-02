@@ -1,0 +1,4 @@
+General Kotlin things
+
+    A "receiver" is a value made implicitly available (implied that it's there, and available to use) in a function
+    A top level function is a function that is not within a class

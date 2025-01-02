@@ -35,19 +35,18 @@ Kotlin Classes
 
         methods in the class have access to properties of the class
 
-        If you are not going to initialize a property use can ust late init. but you have to make sure that you actually do it.
+        If you are not going to initialize a property use can use late init. but you have to make sure that you actually do it.
 
        class Properties are val/var
        class members are functions/methods within a class
 
     Class Methods
         define the behavior of an instance of an object
-        methods have access to the properties of the class aka they have access to the state
-        When calling a method, it's passed a reference of the object we are calling the method on.
-        And that is known as "this"
+        methods have access to the properties of the class, i.e. they have access to the state
+        When calling a method, it's passed a reference of the object we are calling the method on. And that is known as "this"
         it's a reference to the object were calling the method on
         To call the method you must first have an instance of the class
-        the name of the variable is what is referencing the current object meaning this, and your calling it through the variable name
+        the name of the variable is what is referencing the current object meaning this, and you're calling it through the variable name
         Methods/functions can call other methods within the same class
 
         the word "this" is referring to what is in the object not the parameters

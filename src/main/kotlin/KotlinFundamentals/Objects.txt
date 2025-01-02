@@ -4,12 +4,13 @@ Objects
     object declaration: like example2 or example3 //  only has one instance and is initialized when it is first accessed
     objects don't have constructors
     you initialize the properties and methods in the body of the object
+    you access the data and methods through the class name
     example1 is an object expression/instance
     making something as a companion object in the class makes the methods inside that object accessible to the outer class methods and properties
     use object keyword instead of class keyword, but use the same as you would in building a class definition
 
 
-example1 expression/instance:
+example1 expression/instance/anonymous:
     val simple = object {
         val name = "frank"
         fun printName () { printLn(name }
@@ -18,7 +19,7 @@ example1 expression/instance:
     use
         simple.printName
 
-example2 Singleton:
+example2 Singleton/Named object:
     object Logger {
         fun debug(message: String){do stuff}
     }
@@ -41,5 +42,12 @@ example 3:
 
     like statics in other languages / meaning calling it through the class name
 
-
+class User private constructor(val name: String) {
+   companion object Builder {
+        fun build (fName: String, lName: String): User{
+            return User(name = "$fName $lName")
+        }
+    }
+}
+in the code above if you don't have val/var in the class constructor, you will not have access to it when you instance it
 

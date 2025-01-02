@@ -1,0 +1,111 @@
+Invoices Processor explanation
+
+Has an interface
+    InvoicesProcessor
+    This defines what the service/processor is supposed to implement
+
+    The InvoicesProcessorImpl, is the class that is implementing the interface above
+    The implementation of getInvoicesHome method is what I'm going to focus on.
+    InvoicesProcessorImpl is annotated with @Service which allows DI through the constructor. Spring manages the beans/objects
+    for this
+    the constructor has 6 different types it needs to implement/create objects for at runtime, each type is annotated
+    with @Component in its respective file/class so spring can initialize it at run time
+
+    in getInvoicesHome method. Which is overridden from the interface has an
+    Outcome<ErrorResponse, InvoiceScreen> return type and has a parameter of accountToken that gets passed in from the controller
+    The Outcome is sequential meaning that it runs in series and if something fails it will return the ErrorResponse
+
+        val invoicePeriodsTask = scheduleGetInvoicePeriods(accountToken)
+            makes a call to scheduleGetInvoicePeriods() with the accountToken
+            this has an Outcome<GetInvoicesErrorResponse, InvoicePeriods>
+            this then calls getStatementPeriodsOrError() method, that goes into the PersonalLoansInvoiceProvider class
+            the getStatementPeriodsOrError method actually calls the bsc method to get the info needed. and makes the object
+            InvoicePeriods that needs to be returned (this is the list of invoices dates) that is then used by
+            other methods in the processor that aggregate some other data that's in this response, they pass to the normalizer
+            there are data sorting going on here (getStatementPeriodsOrError) before it gets to the normalizer
+            It gets the list then turns it into a map and then sorts it by index
+            the .map{it.first()} in the getStatementPeriodsOrError method, it is extracting a list from a list
+             so were getting the first elements of the inner list.
+
+        val cardAsync = async { cardServiceArbitrator.getCardUsingAccountToken(accountToken)}
+            makes a call to get the CardDataBean. This is all the information about the card member according to the accountToken
+            this gets passed to the normalizer function
+
+        val paymentHistory = async { paymentsInquiryClient.getPaymentHistory(PaymentsWithHistoryRequest())
+            the PaymentsWithHistoryRequest has metadata for the bsc call
+            this is making the call to the bsc to get information to pass along to other vals/methods in the processor
+            that make there way to the normalizer
+            this info has weather the auto-pay is on or not.
+
+        val (paymentHistoryTask) = paymentHistory.await().mapError{}
+            the paymentHistoryTask is destructuring the paymentHistory response above from the bsc call,
+             which is type PaymentsHistoryResponse. the map error is calling the invoiceHomeNormalizer.mapErrorResponse()
+
+        val (history) = paymentHistoryTask.accountTokenToPaymentsWithHistory.get(accountToken).requireNotNull(
+            GetInvoicesErrorResponse().mapError(invoiceHomeNormalizer::mapErrorResponse)
+                this is getting the destructured response from paymentHistoryTask and then doting into accountTokenToPaymentsWithHistory
+                (Not really sure why)
+                this is what gets passed into the normalizer function for it to run.
+
+        val (invoices) = invoicePeriodsTask.await().mapError{ invoiceHomeNormalizer.mapErrorResponse( GetInvoiceDetailsErrorResponse(
+                            message = "Period Call Failed", statusCode= StatementDetailsErrorCode.GENERIC_ERROR)
+                            )
+                            }
+        this mapError is the same as the paymentHistoryTask
+        invoices is destructuring the first call invoicePeriodsTask and mapping the error.
+        This gets passed down to other vals/methods for use (and I think for null handling)
+
+        val (closingDate) = invoices.openInvoice?.closingDate.requireNotNull()
+            this is getting the closing dates for each invoice from the invoices call
+            and handling it if null values come back. this gets passed to the endDate for processing (I think this maybe the most recent invoice date)
+
+        val (endDate) = invoiceAccountBalanceProvider.parseEndDate(closingDate).mapError(invoiceHomeNormalizer::mapErrorResponse())
+            this is taking the closingDate from above which is a LocalDate and changes it to a string iso date using the
+            parseEndDate method in the PersonalLoansInvoiceProvider class (I think this provider is just a seperate helper class
+            as not to pollute the processor class.)
+
+        val accountBalanceAsync = invoiceAccountBalanceProvider.statementBalanceAsyncTask(accountToken, endDate)
+            this runs the statementBalanceAsyncTask method with this needed parameters, Has an
+            Outcome<GetInvoiceDetailsErrorResponse, BalancesData> the statementBalanceAsyncTask calls the getBalanceSummaryForOrError
+            with the accountToken and the endDate passed in. this then calls the getAccountBalancesOrError with the accountToken
+            and endDate as well this calls the bsc fins client to get List<FinsClientBalanceData>
+
+        val (accountBalance) = accountBalanceAsync.await().mapError(invoiceHomeNormalizer::mapErrorResponse())
+            This is destructing the accountBalanceAsync response which is of type BalancesData. it is passed to the normalizer
+
+        val invoiceDates: NonEmptyList<LocalDate>? = NonEmptyList.of(invoices.allClosedInvoices
+                .filterNot{it.index == 0 || it.closingDate == null}.map { it.closingDate!! })
+                This takes a list of allClosedInvoices filters out the first index and closing dates that are null and
+                returns a list of closingDate. this is then passed to the normalizer.
+
+Errors
+    getInvoiceHome error is Error which is a sealed class that has many subclasses. Looking at the tests it looks like it's returning
+
+    Error.ErrorMessage(
+    val errorMessage: ErrorMessage,
+    override val reportingCode: ReportingCode = GenericFailure,
+    override val debugMessage: String? = errorMessage.message() <- this function determines what type of message (i.e. ErrorMessage.Large)
+    override val httpStatus: HttpStatus = httpStatus.INTERNAL_SERVER_ERROR
+    override val appReportStatus: AppReportStatus = AppReportStatus.SYSTEM_ERROR
+    )
+
+    subtype with the needed values in it.
+
+    val invoicePeriodsTask = scheduleGetInvoicePeriods(accountToken)
+        error type is GetInvoicesErrorResponse which is also/same as GetStatementsErrorResponse
+        it gets changed to Error.ErrorMessage because invoicePeriodsTask gets passed down to val (invoices) and the error
+        gets mapped there
+
+        val cardAsync = is not an outcome, I am assuming it will be there, the error type is probably handled before it
+        gets here
+
+        val paymentHistory = is and Outcome with error type PaymentsApiError, found it I think, this gets passed down to
+        paymentHistoryTask and the error gets mapped there
+
+        paymentHistoryTask is mapping the error response to Error.ErrorMessage or is successful
+
+
+
+
+
+

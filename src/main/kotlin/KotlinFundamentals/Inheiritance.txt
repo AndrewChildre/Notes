@@ -27,3 +27,5 @@ Inheritance / Derivation
     when you are dealing with constructors you have to pass the values up if the Person class at the top has a val name: String
     property and you inherit in the Student class the Student class needs to pass the name up to the Person class
 
+    open in the top/base class, so we can inherit in the subclasses and override if needed in the subclass
+    you can make something more visible in the sub-class but not less visible

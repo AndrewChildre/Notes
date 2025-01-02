@@ -1,7 +1,14 @@
 Higher Order functions and lambdas
+
+    A higher order function is a function that takes a function as a parameter
+
     Notes:
        to pass a function as an argument, you wrap it in curly braces in the function parameters
+        below the action parameter is a type, that type is a function signature
 
+        A lambda is always surrounded by curly braces, specifies parameters, and provides a body of the lambda which
+        contains the actual logic
+        { x: Int, y: Int -> x + y }
 
     Functions as arguments:
         fun foo(bar: Int, action: (Int)->Unit) {}
@@ -10,17 +17,23 @@ Higher Order functions and lambdas
 
         foo(23, { a -> someFunction(a) }) //when you pass a function as an argument, you wrap it in curly braces
 
-        foo(23) { a -> someFunction(a) } if the function parameter is the last parameter you can move it outside of the parens
+        foo(23) { a -> someFunction(a) } if the function parameter is the last parameter you can move it outside the parens
 
         foo(23, {someFunction(it)}) you don't have to declare the variable like above, if it only has one. You can use "it"
 
         foo(23) {someFunction(it)} the compiler already knows what it is
 
+
        Can also do in-line code aka lambda
         foo(23, { a -> do something with a here })
         foo(23) {do something with "it" here}
 
-  Function References:
+        you can move the last parameter outside the () if it is a lambda
+
+        if it's the only parameter you can lose the () on the function and just use  {}
+
+
+  Function References/Scoping:
         fun foo(bar: Int, action: (Int)->Unit) {}
 
         class Bar {
@@ -33,14 +46,18 @@ Higher Order functions and lambdas
         val b = Bar()
         foo(23, b::someOtherFunction) this is in the Bar class
 
+        the below is the same
+        people.maxByOrNull(Person::age)
+        people.maxByOrNull {p: Person -> p.age }
+
     Fibonacci example:
 
         calling Fib:
             fibonacci(8,{ println(it)})
             fibonacci(8) { println(it)}
             fibonacci(8) {n -> println(n)} n here is the value getting passed to the println function
-                    don't get confused here "it" is not 8 or the first parameter it is "current" coming out of the for loop where actio is called
-                    // the second parameter is the action function println doesnt return a value but it's getting passed "current" which is an Int
+                    don't get confused here "it" is not 8 or the first parameter it is "current" coming out of the for loop where action is called
+                    // the second parameter is the action function println doesn't return a value, but it's getting passed "current" which is an Int
 
             fun fibonacci(limit: Int, action: (Int) -> Unit) {
                 var prev = 0
