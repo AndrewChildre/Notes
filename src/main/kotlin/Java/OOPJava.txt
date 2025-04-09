@@ -1,0 +1,257 @@
+OOP Java
+
+it's a programing paradigm the two most popular are object-oriented and functional style.
+Everything in oop is based on objects.
+Objects
+contain "state" which is the data that is in the object. the object contains methods which operate
+on the state, to change it or populate the values. Objects can/do perform together to perform various tasks.
+objects have attributes and things it can do. an attribute is a variable. things it can do is a method.
+
+Classes
+    are blueprints for creating objects. an object is an instance of a class.
+    a field is a variable inside a class.
+
+    In java each class should be in its own file
+
+    Example:
+        public class TextBox {
+            public String text; <- field variable
+
+            public void setText(String text;) {
+                this.text = text
+            }
+            public void clearText() {
+                text = ""
+            }
+            }
+            }
+
+            when the parameter name and the field name are the same you can use "this". in the above this.text
+            is refering to the object instance, and "text" is referring to the parameter in the function.
+
+            variables/fields
+                you can do like this -> public String text;
+                or var text;
+                you don't have to initialize them. although the compiler will give them default values.
+                you should probably initialize your variables, so you don't get a NPE
+                using the var should be inside a method or class. the compiler can infer the type
+
+        instantiating a class
+         TextBox textBox = new TextBox();
+         var textBox = new TextBox();
+         you don't need the type on the left. the compiler can infer the type based on what you're assigning it to.
+         then you can dot into the fields and methods from the variable name.
+
+ procedural/functional paradigm is the same thing essentially.
+ function parameters are separated by commas not semicolons
+
+ Encapsulation
+    bundle data and methods that operate on the data into a single unit/class
+
+Setter/Getter
+    Setter is using a function inside the class to validate whether the data being passed is valid. it then should pass
+    that data to the method using it.
+    a getter looks like this
+
+    public int getBaseSalary() { return baseSalary }
+
+    a setter in a class looks like
+
+    public void setBaseSalary(int baseSalary) {
+    if(baseSalary <= 0) throw new IllegalArgumentException("message here")
+        this.baseSalary = baseSalary
+    }
+
+    the if statement is there to check for validation. If you don't need to validate then just use this.baseSalary = baseSalary
+    in Java we make the fields/properties private and use the getters and setters when we need to use them.
+    They help you get and set the variables inside the class. you can pass the constructor parameters to the get/set methods
+    and work with them that way.
+    this.baseSalary is this class, meaning the class that is instanced and = baseSalary is the variable parameter in the function
+    so the function parameter value is the value of the class variable.
+
+    aka this object variables value equal to the parameter value passed in the function.
+
+Exceptions are classes in java you can use them when needed
+ like  -> throw new IllegalArgumentException("error message here")
+
+Abstraction
+    reduce complexity by hiding the implementation details, keeping them private in the class and using them
+    there. and not exposing them to the global name space. Hide the implementation details, and only expose to other classes
+    what needs to be there.
+
+Constructors
+    are called when we instance a class/ create a new object. they help initialize the objects.
+    It puts it in a valid state, so you don't have to call
+    the getters and setters when you instance the class, the constructor does it
+    below is a constructor defined inside the class definition
+        public Employee (int baseSalary, int hourlyRate) {
+                setBaseSalary(baseSalary)
+                setHourlyRate(hourlyRate)
+        }
+
+    the function call above would be defined in the class body and are used to set the class variable values.
+    there are default values for constructor parameters numbers are 0, booleans are false, reference types will be null.
+
+    body of classes are usually set up like this
+    Field variables
+    Constructors
+    methods
+
+    If there are no constructor parameters. the default constructor gets called and the field variables get initialized to
+    their defaults
+
+    private means inside that class only
+
+Method overloading
+    creating different implementations of a method. But with different parameter types.
+    changing the parameter type. like from an int to a double.
+
+    overloaded method for a default value
+    public calculateWage() {
+        return calculateWage(0)
+    }
+    this would pass 0 as a default for the parameter. Java doesn't have defaults in the parameters like Kotlin does, you
+    have to overload the method definition.
+
+Statics
+    in Java we have instance members and static members
+    Instance members belong to the instance/object being created. you access them by creating a new instance/object and the doting
+    into them from the variable name.
+
+    Static members belong to the class it's self not an instance/object. You can access then directly through the class
+    like Employee.numberOfEmployees. Statics can only see other statics in a class. Statics are good for consts as well.
+    They would go below the instance fields in the class.
+    looks like
+        public static int numberOfEmployees;
+        you could add this to the class constructor like
+            numberOfEmployees++; this would add one to the numberOfEmployees each time you made a new employee object
+
+
+Inheritance
+    after the class name use key word "extends" and then the class name you want to inherit from.
+    when using inheritance first the base constructor of the base class is called then the class that inherits from it.
+    when the base class has a constructor parameter the inheriting class needs to pass it to it. We use the super() and
+    then pass the parameter values inside the perens. the super() needs to be the first line in the body of the inherited
+    class
+
+Class set up convention
+    usually looks like
+    Fields/variables first
+    constructor methods next
+    then the member methods last
+
+Access modifiers
+    Private
+        In class only, they are not visible to the inherited classes. private hides the implementation details of that class
+        it's used so when you make a change in a class it has limited affect to the implementation.
+    Protected
+        is visible within the package
+    If there is no modifier, then it is visible with in the package.
+    try to stick with public or private to keep it simpler.
+
+Overriding Methods
+    every class has access to the .toString() from the object class. You can override methods that you inherit from other
+    classes i.e. the base class.
+    use the annotation @Override
+    it gives the compiler extra info that we are overriding a method from another class.
+    when overriding it needs to match the return type and the signature of the original method
+        public String toString() { return text }
+        the method above needs to be after the constructor. It overrides the toString method and instead of returning the
+        default of the qualified name with memory location, it returns the actual text that was set from the textBox.
+
+Upcasting
+    from subclass -> parent
+    subClass isA parent
+    public static void show(UiControl control) {
+    var textBox = (TextBox) control
+            sout(control)
+    }
+    if you want to use fields and methods from the subclass in the parent class you would need something like
+    var textBox = (TextBox) control; because TextBox inherits from UiControl. you would need to make sure that you are
+    passing a textBox type in the function if it's set up that way. other wise if you pass the actual UIControl object
+    it will throw an exception.
+
+Comparing objects
+
+    in Java the objects are references meaning if you have two objects that are the same type and have the same values they
+    will not be equal. when you use == or the .equals() it's going to return false because it's checking the reference of
+    where they are stored in memory on the values of the objects. You have to override the .equals() method in your class
+    to get the result you want.
+
+Polymorphism
+    many forms
+    this is where you define or implement a method in a base class and override it in one of the sub-classes
+    UIControls[] controls = {new TextBox(), new CheckBox()}
+
+    for(var control : controls) { control.render() }
+ the code is as follows controls is an array of UIControls of which TextBox and CheckBox both inherit from. the loop runs
+ the first time it makes a new textbox and runs the render() function for the textbox class and then the next loop runs for
+ the checkbox class and the render function runs the render() function is overridden in each class, so it has a different result
+
+ polymorphism is used in inheritance where if you have
+       IOException ex = new FileNotFoundException() <- this could be any sub-class/exception that inherits/extends the IOException class
+
+
+Abstract classes and methods
+    common code for the inheriting classes you can not instance an abstract class
+    use abstract on a class when you don't want to instance it. like a base class that just has methods that aren't implemented
+    if you have an abstract method in an abstract class you must implement it in the inheriting class.
+    public abstract class UIControl {
+        public abstract render();
+    }
+    the render function above is not implemented here and needs to be done in any class that inherits from it.
+
+Final classes and methods
+    final keeps you from extending classes i.e. keeps you from inheriting from it.
+    methods that are final can not be overridden and final variables can not be updated, they are constants.
+
+Inheritance info
+    don't do the deep inheritance keep it to one or two levels
+    Java doesn't support multiple inheritance you can only inherit from one class.
+
+Interfaces
+    similar to abstract classes, where it reduces the coupling between classes. It is a contract, has methods and fields
+    that are defined but not implemented yet, It declares the capabilities that the class can have. you need to have
+    a class implement the interface and that class will determine how to implement the methods and fields of the interface
+    they all need to be implemented, or you will get a compiler error.
+    Interface               Class
+        what should be done    how it should be done
+
+    looks like
+    public interface TaxCalculator {
+            double calculateTax();
+            double addTogether();
+    }
+    you don't need the modifier, I will be the same as the interface.
+    To use the interface you would put the "implements" key word at the end of the class name and then the interface name.
+    you would then have to implement what ever methods are in that interface.
+    @Override is used on the methods when using an interface, you know if something got removed from it/interface.
+    the annotation would cause a compiler error.
+
+    Don't use statics in interfaces. they would probably have implementation in them and that is not the purpose of the
+    interface, it is for defining only.
+
+    Interfaces are loosely coupled to the class because they don't have implementation in them. The class that implements
+    the interface has the concrete implementations. you are able to extend your application because you can program to the
+    interfaces contract and have your own implementations of it. as opposed to one class that has the implementation on it.
+    If you are using a class that has partial definitions or is partly implemented the ypu should be using an abstract class
+    and not an interface.
+
+Dependency injections
+    classes should not create/instance there dependencies/objects the need.
+    That should be done by a different class and then passed/"injected" into the class using it.
+    This is the separation of concerns. there are different ways of doing this
+    constructor injection, setter injection, method injection.
+    In constructors the dependency injection is, the class has certain classes it needs to build it. those classes are in the
+    constructor.There are other classes that are already instanced, and then injected/passed to build the class that needs it
+    the class depends on that other class being injected to it.
+    The class that has the dependency, should not be the same class that is instancing/making the object of it. a different
+    class will do that and to inject it into the class that needs it.
+        Constructor Injection
+        constructor -> public TaxReport(TaxCalculator calculator) {
+                this.calculator = calculator
+        }
+        When instancing the TaxReport class you will need to pass/inject an instance/implementation of the TaxCalculator to it
+        Constructor injection is the most common, so we can see all the dependencies in one place. Most of the time we use
+        DI frameworks like spring to do this for us.
+

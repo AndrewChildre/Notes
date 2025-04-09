@@ -9,3 +9,9 @@ Useful Information
         BLue = Modified
         Gray = Deleted
 
+    show diff in file
+        git tab -> current file -> show diff
+
+    inline completions active/inactive
+        settings -> editor -> general -> inline completions
+

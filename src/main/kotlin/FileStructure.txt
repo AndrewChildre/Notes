@@ -1,0 +1,9 @@
+File Structure
+    "Root" Directory
+        denoted by a "/" forward slash
+        is the most top level directory in the file system
+        all others are below it
+    "Home" Directory
+        Is the directory create for each user
+        /Users/userName or ~
+

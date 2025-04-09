@@ -1,8 +1,11 @@
 
-git fetch -> updates all remote tracking branches, so you can see any new branches added on the remote, without affecting your working branch.
+git fetch -> Downloads info about the branches and commits from the remote/origin to your local machine
+It does not change your current branch or modify the files in your working directory. I just update your copy of whats on the remote.
+updates all remote tracking branches, so you can see any new branches added on the remote, without affecting your working branch.
 does not merge
 git pull -> it doesn't get the new branches on remote it only affects the branch you’re on, fetching and merging changes for that branch specifically
 It can cause merge conflicts.
+git commit -a only adds changes to the commit in tracked files it knows about, not untracked files. you need to add them first
 
 Merge Main
  git fetch origin
@@ -10,3 +13,100 @@ Merge Main
  git push
     you don't need git commit because when git merges it. It does its own commit.
     you would need a git commit if there are conflicts that needed to be resolved.
+
+Git commands
+     git add <file name> = to add a new file
+     intellij usually asks if you want to add to when you make the new file
+
+    git commit -a commits all tracked files. if you do -am"message" the m is the commit message and won't take you to the vim messages
+    you can't switch branches "git checkout branchName" unless the branch is clean i.e. it has been committed
+
+    git commit -a does not add new files. it just adds the changes to the current files
+
+    Branch commands
+    git branch = list branches
+    git branch <name> = creates a new branch
+    add new branch git branch -b <name> this one creates a new branch and checks out, so it would be like
+            git branch <name>
+            git checkout <name>
+    switching branches it just git checkout <name>
+
+    renaming branches
+        git branch -m <currentName> <newName>
+        or if on that branch
+        git branch -m <newName>
+
+    Delete Branch
+        git branch -d <name>
+        if you have unmerged commits you will get an error, you will have to use the -D for force the delete
+        you also cannot delete the branch you are on. you have to switch branches to do that
+
+    File management
+        Untracked files
+            not been added (like with git add <fileName>, or with git commit) those files will stay in the file directory
+            no matter what branch you are on.
+        Staged files
+            have been added via the git add <name> or . these are ready for commit.
+            if you switch branches with staged files, they remain staged in the new branch because they don't belong to any specific branch yet.
+        Committed files
+            belong to the branch where the git commit command was run. you won't see them on the other branches
+
+    Conflicts
+        git log --oneline will give you a list of commits the first/top one is the latest commit
+
+    Fast-forward merge definition
+        The reference for main is moved forward to the last commit on the branch you are merging in.
+        If there is no conflicting activity
+
+    Target
+        refers to the branch you want to change by merging changes into it. It's the target of the merge
+    Source
+        refers to the source of the changes, it is the source of the merge, usually for us it is not the main.
+    Remote
+        where the project is hosted
+    gitHub
+        fork a repo  = means creating a copy of the repo in your own account. where you can experiment and make changes that won't
+        affect the original
+        clone a repo is making a copy of it on your own machine
+        A remote will have a url, you can use it to make a local copy from
+                first find/make a directory on your machine, make sure your in that directory then type
+            git clone <copied-url-from-gitHub>
+            this will automatically pull down the code and set up the main branch
+            then cd into the home directory, you should see what branch you are on then. It should be main.
+            by default the server/place you cloned from is named origin
+
+        git remote -v will give you the url for the remote you are cloned into. this will be what you're pushing into
+
+        When you get the message that the "remote contains work you don't have locally". It means that branch your trying to
+        push to has changes on it that you don't have, and you need to pull those changes to your local machine
+
+        push a branch to remote
+        git push -u origin <branch name>
+        fetch a branch from remote/origin
+            git fetch origin <branchName>
+
+    in gitHub when it deletes the branch. It only deletes the branch in the remote not the local
+
+   Rebase
+    git rebase main
+        any changes in main will be pulled into your branch, then my commits will be replayed/put after the last commit from main
+
+    Merging
+        git merge main
+            this takes the changes from the main branch (from the time you branched off of it) to you most current commit
+            it compares them to make sure there are no conflicts and then merges them together. this will create a new commit
+            called a merge commit. it should be the newest commit on your branch
+
+     local tracking branches
+        are usually origin/<branchName> and are set up to track changes on remote. When you do git fetch it downloads all the changes
+        from the remote to your local repo. those are not merged into your branches and repo yet. So you have to go git merge origin/main
+        to merge in the changes that you received. if you just do git merge main, it will just merge the current main, which doesn't
+        have the new stuff in it yet.
+
+        if you do git pull on the branch your on it will git fetch origin and then git merge origin/<branchName>
+
+    git reset HEAD~1
+        removes the commit and unstages the changes, It returns the changes to your working directory
+
+
+

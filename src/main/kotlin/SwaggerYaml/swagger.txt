@@ -1,0 +1,74 @@
+
+YAML basics
+
+Uses yaml which is a super set of json
+json is valid yaml
+
+Has
+    sequences = lists and arrays
+    mappings = key value pairs and objects
+    scalars = strings, numbers, booleans, dates
+    - a dash is and item in a list
+    - [list, within, a, list]
+
+    mapping =
+        key:
+          list:
+            - A
+            - B
+            - C
+duplicate named keys are not allowed
+comments are #
+If you want "" in your string use '' to start it and put them inside of it
+
+multi line scalars
+        folding
+    > folds the lines at the same level
+    >- removes the trailing empty lines in a file
+    >+ keeps the trailing empty lines in a file
+
+    chomping
+        | pipe char
+        keeps the line brakes as they were inputted in the file
+            |- removes the trailing empty lines in a file
+            |+ keeps the trailing empty lines in a file
+
+explicit typing
+    notDate: !!str 2022-05-02
+                ^ explicit cast to a string
+
+Schemas and validation
+    enforce the rules of yaml
+    help validate if a file adheres to the rules
+    used to create data types
+    yaml has a core schema that it uses to validate if it is correct
+    some languages have their own schemas that can validate against yaml
+    parsing is known as chagine from one format to a new one then loaded into the application
+
+Swagger 2.0 / Openapi 3.0
+   are the same thing, with some changes.
+
+   uses yaml to describe an endpoint/webservice
+   the yaml is organized into fields, lists, objects. Like json it is name value pairs
+
+Structures
+    see example file
+    top is usually the spec I don't think I will see 2.0 in MSL
+    then there is the info: object and has the following fields
+
+    info:
+      version: 1.0.0-oas3
+      title: Customer API
+      description: for storing customer data
+      contact:
+        name: AC
+        url: http://www.me.com
+        email: me@me.com
+      license:
+        name: MIT
+        url: http://opensource.org/licenses/MIT
+
+
+
+
+

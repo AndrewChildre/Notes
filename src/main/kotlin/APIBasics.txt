@@ -41,4 +41,22 @@ need to make data models that match the json from the server you want it to look
 
 create an interface for retrofit to work this subs out the call with the GET annotation
 
+The difference between a path parameter and a query string.
+    Path parameter
+    aka url parameters
+    are part of the url path itself
+    looks like /users/{id} or /users/123
+    they are part of the route/path structure
+    usually required for identifying information
+
+    Query String
+    comes after a "?" at the end of a url
+    like /users?id=123
+    they are optional and appended to the end
+    used for filtering or sorting or search parameters
+    can have multiple parameters by using "&" to separate them -> ?id=123&name=john
+    it's in a key value format
+
+
+
 

@@ -1,0 +1,141 @@
+Exceptions
+
+The stack trace in the terminal. the red exceptions are in reverse order. Meaning the first one is the last method called the one
+below that was called before it, and it goes down the stack.
+
+The Java run time is looking for exception handlers, and goes down the stack of calls,
+If it can't find a handler. It will throw an exception.
+
+Types of Exceptions
+    Checked / Unchecked / Errors
+
+    Checked
+        These are anticipated and should be handled properly.
+        The compiler will force you to handle them, you will get a compiler error for checked exceptions.
+
+        var reader = new FileReader("File.txt")
+                            ^there will be a compiler error here
+                                this is a checked exception, and you have to handle it the exception in a try/catch block
+
+    Unchecked
+        This would be a runtime exception, not checked by the compiler
+        something like passing null to a method that it wasn't expecting your going to get and exception if you don't handle it
+        these occur because of programming errors
+        Null Pointer Exception is an example of that
+        ArithmeticException
+        IllegalArgumentException
+        IndexOutOfBounds
+        IllegalStateException
+
+    Errors
+        errors are external to our application
+        stack overflow/out of memory errors something that comes from the jvm would be an error
+
+
+Exception hierarchy
+    goes off of class inheritance each one below is a class that throws exceptions for certain things
+    Throwable -> Exception -> RuntimeException
+    Error class inherits from the Throwable class.
+
+Handling / Catching Exceptions and Multiple Exceptions
+
+    Use try catch blocks
+
+    public static void show() {
+           FileReader reader = null;
+        try {
+            reader = new FileReader("File.txt")
+            sout("File Opened")
+            var read = reader.read()
+            new SimpleDateFormat().parse()
+        } catch (FileNotFoundException | ParseException ex) {
+            sout("File not found")
+            sout(ex.message())
+        } catch(IOException ex) {
+            sout("could note read file")
+        } finally {
+            if (reader != null) {
+                reader.close
+            } catch (IOException ex) {
+                sout("Close Exception")
+            }
+        }
+    }
+
+    With this it starts out with the reader variable.
+    the FileReader can throw an exception of FileNotFoundException.
+    if it does it goes to the catch block where you can handle the exception instead of your program crashing.
+    the "ex" you can use to dot into different methods to use like ex.message() which would print the exception message
+    that it threw
+    the "|" in the catch is the "or" it only has one because in Java the single pipe will evaluate both side of the "or"
+    regardless if the value on the left side is true. (the "||" or if the value on the left is true, it just continues on
+    and doesn't even look at the value on the right.)
+    The reader.read() the read method can throw a IOException. so it has its own catch block. Because we want to have its own
+    different handler. We could put theoretically all in one catch block but wouldn't have custom handling of each error.
+    There is the class hierarchy, so we need to be cognisant of that. The more specific errors go first. If you don't you will
+    get an error because the higher up class is already handling the error like the FileNotFoundException inherits from the
+    IOException, so if that was first you would get an error if FileNotFoundException was second.
+    it's already being handled by the first one.
+
+    In the finally block it runs last. the close method there could throw an IOException, you would need to handle that
+    in that block.
+
+    try-with-resources
+        public static void show2() {
+            try(var reader = new FileReader("File.txt")) {
+                sout("File Opened")
+            } catch(IOException ex) {
+                sout(ex.message())
+            }
+        }
+
+        This is basically the same as above except in the try block the () is telling the compiler to run the close method
+        if it doesn't throw an exception.
+        It doesn't look MSL uses this at all. It uses the first example wit the finally block.
+
+Re-throwing Exceptions
+
+    You have a method defined in a class
+    public class Account {
+        public void deposit(float value) throws IOException {
+            if(value <= 0) throw IOException();
+        }
+    }
+
+    Then you are using it in another class or in another method in a class
+
+    public class ExceptionDemo {
+        public static void show3() throws IOException {
+            var account = new Account() <- instance a new Account object
+
+            try {
+                account.deposit(-1)
+            } catch (IOException ex) {
+                sout("log the exception")
+                throw ex; <- throw the exception again, because here the exception gets thrown, and we are just logging the output
+                            we need to throw it again when the show3() method gets called;
+            }
+            }
+        }
+
+        The next this is calling the show3() method and handling it there. this would be the runtime on the app where
+        basic and generic error messages would be.
+
+        public class Main {
+            public static void main {
+                try {
+                   ExceptionDemo.show3();
+                } catch (Throwable ex) { <- can use Throwable here because IOException inherits is a subclass of it and show3() throws an IOException
+                    sout("generic error message")
+                }
+                }
+            }
+        }
+
+    If you rethrow an exception it will stop executing the method and will not do anymore try-catch in there.
+Exception class hierarchy
+    java.lang.Throwable -> java.lang.Exception -> java.io.IOException -> java.io.FileNotFoundException
+
+
+
+

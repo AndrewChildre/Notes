@@ -9,3 +9,6 @@ BSC:
 
 API Models: are the ones that interact with the backend using (moshi for the deserialization i think)
 Client Models: are the ones that the API models get mapped to, and then we send to the feature side on msl.
+
+AccountHub is the new one
+AccountTab is the old one

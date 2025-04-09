@@ -12,3 +12,21 @@ Polymorphism
 
 State
     represents the data that currently appears and how it behaves at that point in time of the object that has been created
+
+Mac Stuff
+    show hidden files
+        CMD SHFT Period
+
+    alt + enter is = option + enter
+Constants
+    if it represents something that doesn't need to change / a fixed value like zero, empty strings, PI it should go
+    directly in the file as a const val, they are used in (normalizer) not in a config file.
+
+        Configs
+            things like thresholds, limits, feature-toggles, env-specific things should go in a config constants don't.
+            they go in the class at the op
+
+    extensible = adding new capabilities or functionality
+
+
+

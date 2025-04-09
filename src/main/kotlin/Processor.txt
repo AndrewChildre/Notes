@@ -27,6 +27,11 @@ Has an interface
             the .map{it.first()} in the getStatementPeriodsOrError method, it is extracting a list from a list
              so were getting the first elements of the inner list.
 
+             -> this call is getting a list of invoice dates, the backend it is calling is the ReadAccountStatementPeriods.V2
+                The Return type is InvoicePeriods, this gets passes down to the invoices variable for destructuring because
+                you have to go from InvoicePeriods -> allClosedInvoices: List<PeriodsItemData> -> closingDate: LocalDate?
+                this is the date returned for the list
+
         val cardAsync = async { cardServiceArbitrator.getCardUsingAccountToken(accountToken)}
             makes a call to get the CardDataBean. This is all the information about the card member according to the accountToken
             this gets passed to the normalizer function
@@ -54,6 +59,7 @@ Has an interface
         this mapError is the same as the paymentHistoryTask
         invoices is destructuring the first call invoicePeriodsTask and mapping the error.
         This gets passed down to other vals/methods for use (and I think for null handling)
+
 
         val (closingDate) = invoices.openInvoice?.closingDate.requireNotNull()
             this is getting the closing dates for each invoice from the invoices call

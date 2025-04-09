@@ -1,0 +1,156 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0-oas3
+  title: Customer API
+  description: for storing customer data
+  contact:
+    name: AC
+    url: http://www.me.com
+    email: me@me.com
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+paths:
+  /customer:
+    get:
+      summary: just summarizing what it's for
+      description: longer description of the summary
+      parameters:
+        - in: query
+          name: customer
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: employee does not exist
+    post:
+      summary: adds new customer
+      operationId: addCustomer
+      description: Adds new customer to system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        description: body of post request
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            text/plain:
+              schema:
+                type: number
+        '405':
+          description: bad input
+  /customer/{customerId}:
+    put:
+      summary: update customer
+      operationId: updateCustomer
+      description: updates customer to system
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        description: updated customer data
+        required: true
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Customer not found
+        '500':
+          description: Server Error
+    delete:
+      summary: delete customer data
+      description: removes customer data
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: customer not found
+      security:
+        - BasicAuth: []
+security:
+  - BasicAuth: []
+servers:
+  - url: https://api.global.mayics.com/crm/v1
+    description: Internal
+  - url: https://stagging.global.mayics.com/crm/v1
+    description: sagging env
+  - url: https://{customerId}.global.mayics.com/crm/{version}
+    description: customer prod
+    variables:
+      customerId:
+        default: demo
+        description: customer id for subdomain
+      version:
+        default: v1
+        description: version id
+        enum:
+          - v1
+          - v2
+          - v3/beta
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: number
+        accountValue:
+          type: number
+        active:
+          type: boolean
+        address:
+          type: object
+          properties:
+            name:
+              type: string
+            street:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: number
+        contacts:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              phone:
+                type: string

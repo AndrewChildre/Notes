@@ -1,0 +1,189 @@
+Basics
+
+JDK is used for developing Java applications. It has the JRE (Java Runtime Environment) the JVM (Java Virtual Machine)
+these are used to execute the java programs that are written. It also has tools like a Debugger, and it also has the compiler
+
+compiler in Java and Kotlin take the code and compile it to byteCode in .class files
+bytecode is platform independent. it can run on any platform that has a JRE, it then runs the JVM to native code for what ever OS is being used
+
+Class
+    public class ClassName  {}
+
+Function
+    public boolean functionName (Type parameterName) {}
+            ^return type           ^paramType
+
+
+Variable
+    int age = 30
+    private double balance;
+    variables in java don't have to be assigned the compiler will give then default values
+    they go
+        visibility type name;
+
+Initialize class object
+    Date now = new Date()
+    if it's a non-primitive type you need to use the "new" keyword to initialize it.
+
+    now is the new variable you can now dot into the methods and fields in the Date class
+
+String literal is an actual value
+
+    When you are getting the isIgnored warning is because it's immutable, and you have disregarded the change
+    String message = "Hello World"
+    message.toUppercase()
+    System.out.println(message)
+        This doesn't work, it's just printing out the original message, because the string is immutable.
+        you would need to assign it to a new variable and then do something with it. otherwise you have just thrown away
+        the message.toUppercase() and not used it.
+
+
+Arrays
+    Old way
+        int[] numbers = new int[5] <-5 is the size of the array
+            ^arr             ^arr type
+
+        numbers[0] = 1 this is the first item in the array the value would be one you can assign each index, but not the ones
+        that aren't there. you will get an exception
+
+    New way
+        int[] numbers = {2,3,5,1,4}
+                            ^ size will be 5
+        arrays are a fixed size once you create them you can't add or remove things from them. If you need that you will have to
+        use a different collection type.
+
+Constants
+    final float PI = 3.14F
+      ^use of final makes it a constant can not update the value
+
+Type size
+    byte > short > int > long > float > double
+
+   order of ops
+    () * / + -
+
+Math class
+    is a class in Math (java.lang)
+    has methods on it
+    Math.round() takes a double or a float
+        need to make sure with these methods that the return types are correct
+        I can't have int number = Math.round(1.34) <- this is returning a double not an int I would need to cast it
+        to an int or change the return type
+    Math.max(5,4) would return the larger of the two numbers
+    Math.random() returns a number between 0-1 like 0.25. If you want between 0-10 you need to multiply it by 10
+    if you want 0-100 multiply by 100
+    if you want an int you would need
+        int result = (int) (Math.Round() * 10)
+        this would cast the whole Math.Round() * 10 to an int to drop the decimal points if you didn't have the parens it
+        would just do the Math.Round() and you would get 0 every time. If you want between 1 - 10 you would need to add +1
+        on the end of it.
+
+Formatting Numbers
+    NumberFormat class
+    looks like
+        String result = NumberFormat.getCurrencyInstance().format(2.24)
+        the format function takes a double and returns a string
+        has others like getPercentInstance() as well
+
+Explicit type casting
+    double x = 1.1
+    int y = x + 2
+    here you would get a compiler error because y is an int and not compatible with x, you would need to either change
+    the return type or cast x to an int or another compatible type. like int y = (int)x + 2. you are now casting x to an int
+
+Primitive types have wrapper classes which have methods attached to them
+    Integer.parseInt("1") this would parse the string to an int, and then you could do something with it.
+    it's the same thing with other primitive types like short double etc...
+
+Reading data from the terminal
+    Has Scanner class for the Scanner (java.util) package
+    you have to create a new instance to use it.
+    Scanner scanner = new Scanner()
+    then you can dot into the methods from the variable name.
+    scanner.next() will give you the next string but if there is a space between them, you won't get the next string
+    you would need to use scanner.nextln() to get the whole thing like first and last name.
+
+Comparison and logical operators are the same as Kotlin
+ && || !
+ the ternary operator is a little different from Kotlin is ?: but the kotlin one is checking for nulls
+ where the java one is checking for boolean if you're wanting some type of ternary in kotlin use the if statement
+ java is
+ String seatClass = income > 100_000 ? "First class" : "Economy Class"
+you could use if else in java as well but the ternary is more elegant
+
+if and if-else
+    are pretty much the same as kotlin although in java you don't need and else statement like you do in kotlin. Kotlin only needs an else
+    if you're not returning a value. it needs to handle all the cases it has to return a value.
+    when using if else  make sure the most specific cases are first then to least specific. if you don't it could introduce bugs
+
+Switch case statements
+
+    String role = "admin"
+    switch(role)
+        case "admin" : "You are an Admin"
+            break;
+        case "moderator" : "you are a moderator"
+            break;
+        default: "you are a guest"
+you could change role to an int and then each case could be an int instead of a string.
+
+Loops
+
+for loop
+    for(int i = 0; i < 5; i++) {
+        sout("Hello World") }
+    }
+
+while loops
+good for when you don't know how many times you need the loop to run
+
+    String input = "";
+    while(!input.equals("quit")) {
+        sout("Input: ")
+        scanner.next().toLowerCase();
+        if (!input.equals("quit"))
+        break;
+        if(!input.equals(""))
+        continue;
+        sout(!input.equals("quit"))
+    }
+    the loop starts input does not equal quit so the loop runs. Prints Input:. then reads the input and prints it,
+    it will continue to print Input: until the input variable is quit. You need the equals function because it compares
+    the actual value of the string. If you didn't use it, it would be comparing where it is stored in memory.
+
+    do while
+        this loop is not used very often
+
+    for each loops
+        used to iterate over arrays and collections
+        can only iterate over it fwds and you do not have access to the index with this loop you would need to use a regular
+        for loop like
+                for(int i = 0; i < fruits.length; i++) {
+                    sout(fruits[i]) }
+                }
+
+        String[] fruits = { "banana", "mango", "apple" }
+
+        for (fruit : fruits) {
+            sout(fruit)
+        }
+
+
+
+Break and continue statements
+break will break out of the loop if true and continue on with the program.
+continue will move back to the beginning of the loop and proceed through it again.
+
+if you have a while loop like
+    while (true) make sure you have a break statement in it somewhere otherwise you will get an infinite loop.
+
+Methods
+
+public static String greetUser(String name) {
+    return "Hello" + name
+}
+
+
+
+
+
