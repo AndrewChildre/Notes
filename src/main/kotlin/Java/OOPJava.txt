@@ -28,6 +28,7 @@ Classes
 
             when the parameter name and the field name are the same you can use "this". in the above this.text
             is refering to the object instance, and "text" is referring to the parameter in the function.
+            this.text is the field name we are setting
 
             variables/fields
                 you can do like this -> public String text;
@@ -80,7 +81,7 @@ Abstraction
     what needs to be there.
 
 Constructors
-    are called when we instance a class/ create a new object. they help initialize the objects.
+    are called when we instance a class / create a new object. they help initialize the objects.
     It puts it in a valid state, so you don't have to call
     the getters and setters when you instance the class, the constructor does it
     below is a constructor defined inside the class definition
@@ -90,7 +91,8 @@ Constructors
         }
 
     the function call above would be defined in the class body and are used to set the class variable values.
-    there are default values for constructor parameters numbers are 0, booleans are false, reference types will be null.
+    there are default values for constructor parameters numbers are 0, booleans are false,
+     reference types will be null if not initialized.
 
     body of classes are usually set up like this
     Field variables
@@ -119,7 +121,9 @@ Statics
     into them from the variable name.
 
     Static members belong to the class it's self not an instance/object. You can access then directly through the class
-    like Employee.numberOfEmployees. Statics can only see other statics in a class. Statics are good for consts as well.
+    like Employee.numberOfEmployees. represents a concept that should only be in a single place like nuber of employees
+    and is shared across all objects
+    Statics can only see other statics in a class. Statics are good for consts as well.
     They would go below the instance fields in the class.
     looks like
         public static int numberOfEmployees;
@@ -234,7 +238,7 @@ Interfaces
     Interfaces are loosely coupled to the class because they don't have implementation in them. The class that implements
     the interface has the concrete implementations. you are able to extend your application because you can program to the
     interfaces contract and have your own implementations of it. as opposed to one class that has the implementation on it.
-    If you are using a class that has partial definitions or is partly implemented the ypu should be using an abstract class
+    If you are using a class that has partial definitions or is partly implemented then you should be using an abstract class
     and not an interface.
 
 Dependency injections

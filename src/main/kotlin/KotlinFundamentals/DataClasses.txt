@@ -8,6 +8,21 @@ Modeling data without caring about the behavior.
 getting data from something and modeling it to something else
 If the property/value is declared outside the constructor it is not evaluated in the equality check
 
+if you call a regular class and run the toString on it. it will print the object with the location.
+when you use the "data" key word, it will print the class and the values in it
+just used to model and store data.
+
+can destructure like
+val (name, id) = person the destructuring naming doesn't have to match the constructor parameters
+if you don't want to use a certain just insert an underscore in that spot.
+
+data class Person (
+    val name: String,
+    val age: Int
+)
+
+val andrew = Person("Andrew", 53)
+
 destructured
  val andrew = Person("Andrew", 55)
  val (name, age) = andrew

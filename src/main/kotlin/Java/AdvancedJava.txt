@@ -18,6 +18,7 @@ Types of Exceptions
                                 this is a checked exception, and you have to handle it the exception in a try/catch block
 
     Unchecked
+        aka runTIme exceptions
         This would be a runtime exception, not checked by the compiler
         something like passing null to a method that it wasn't expecting your going to get and exception if you don't handle it
         these occur because of programming errors

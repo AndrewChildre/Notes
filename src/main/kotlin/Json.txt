@@ -1,0 +1,10 @@
+Json
+Each object is within {
+}
+a list or array is within [
+]
+keys and values are between "" in MSL if you have something other that a string you don't necessarily need "" for the value
+I think MSL uses it as a best practice
+after each key value there are commas
+no trailing commas at the end of the object
+no comments in json

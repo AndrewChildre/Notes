@@ -3,7 +3,7 @@ Basics
 JDK is used for developing Java applications. It has the JRE (Java Runtime Environment) the JVM (Java Virtual Machine)
 these are used to execute the java programs that are written. It also has tools like a Debugger, and it also has the compiler
 
-compiler in Java and Kotlin take the code and compile it to byteCode in .class files
+The compiler in Java and Kotlin take the code and compile it to byteCode in .class files
 bytecode is platform independent. it can run on any platform that has a JRE, it then runs the JVM to native code for what ever OS is being used
 
 Class
@@ -164,7 +164,7 @@ good for when you don't know how many times you need the loop to run
 
         String[] fruits = { "banana", "mango", "apple" }
 
-        for (fruit : fruits) {
+        for (var fruit : fruits) {
             sout(fruit)
         }
 

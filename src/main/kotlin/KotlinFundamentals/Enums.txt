@@ -18,8 +18,12 @@ has default properties
     name: what you named it
     ordinal: 0,1,2 like the index value
 has default methods
-    errorCode.values() will give you a list of values
+    errorCode.values() will give you a list of values or errorCode.entries() is the same thing, you would need to loop over
+    each of them to get a list of the values of each enum.
     errorCode.valueOf() <- can put the value of one of the enums in it.
+
+    you can put an abstract method in the body fo the enum. the last enum needs a semicolon to that. then each enum
+    will need to implement the abstract method within curly braces.
 
 errorCode.name would be NONE
 errorCode.ordinal would be 0 like an index

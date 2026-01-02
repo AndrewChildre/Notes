@@ -1,0 +1,9 @@
+Generics
+
+using a generic type when the class is declared
+
+class ArrayList <T> {}
+this is a generic type, definition the "T" is the generic
+then when you go to use it.
+val names = ArrayList<String>(0) {"Andrew"}
+val mutableListOf<String>()

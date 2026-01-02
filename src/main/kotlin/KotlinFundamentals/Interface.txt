@@ -4,7 +4,7 @@ Interface
     Used more than abstract
     implementing properties in an interface can be done in the class that is implementing it, or in the constructor
     Set of method definitions that we need to implement in some way
-    classes that implement interfaces must implement all the methods that are not defined
+    classes that implement interfaces must implement all the methods and properties that are not defined
     methods and properties are abstract by default
     if you happen to implement something in the interface it is open by default
     open meaning you can override it in a class that is implementing the interface

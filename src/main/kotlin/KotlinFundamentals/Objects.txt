@@ -51,3 +51,44 @@ class User private constructor(val name: String) {
 }
 in the code above if you don't have val/var in the class constructor, you will not have access to it when you instance it
 
+Singleton Pattern
+is one single thing in the application
+
+object Printer {
+    fun print() {
+     println("Printing")
+    }
+}
+
+call
+Printer.print()
+only one instance is created.
+you don't need to instance it
+
+It can also implement interfaces like
+interface Printer {
+    fun print()
+}
+
+object PrinterImpl: Printer {
+    override print() {
+        println("printing impl")
+    }
+}
+
+adding the companion word to the object makes it, so it's easier to access with in a class
+it makes it, so you don't have to use the companion object name, you can just use the class name and access the methods in
+the object you need
+ val logger1 = ClassLogger.Warn.buildWarning()
+
+class ClassLogger(): Logger {
+    override fun log() {
+        println("Class Logger")
+    }
+    companion object Warn {
+        fun buildWarning() {
+            println("WARN")
+        }
+    }
+}
+

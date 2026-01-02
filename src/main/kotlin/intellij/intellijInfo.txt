@@ -14,4 +14,3 @@ Useful Information
 
     inline completions active/inactive
         settings -> editor -> general -> inline completions
-

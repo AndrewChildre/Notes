@@ -12,3 +12,6 @@ Client Models: are the ones that the API models get mapped to, and then we send 
 
 AccountHub is the new one
 AccountTab is the old one
+
+Download new secrets
+    ./download_secrets.sh

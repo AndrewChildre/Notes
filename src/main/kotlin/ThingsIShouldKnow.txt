@@ -28,5 +28,10 @@ Constants
 
     extensible = adding new capabilities or functionality
 
+Testing
+    assertThat(actual).isEqualTo(expected)
+    isEqualTo is called on the actual value
+    expected is the value I am expecting
+
 
 
