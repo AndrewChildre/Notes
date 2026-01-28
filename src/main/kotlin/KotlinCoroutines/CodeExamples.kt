@@ -102,7 +102,7 @@ suspend fun printMessage(txt: String) {
 
 //the above runs and Finish main will print before Inside Launch
 // because launch starts and runs asynchronously not with in the main thread
-// so main starts launch runs is the background and main keeps executing and then launch finishes after main is done.
+// so main starts, launch runs in the background, and main keeps executing and then launch finishes after main is done.
 // but since its with in the runBlocking context it does wait for it to finish. and not just quit
 
 fun main3() = runBlocking {
@@ -115,9 +115,11 @@ fun main3() = runBlocking {
     job.join()
 }
 //The above code is showcasing the Job type the coroutines are Job types it is an interface implemented by the framework.
-//.join() is a blocking method it is waiting for the coroutine to finish. the .join() is more efficent than inserting delays
+//.join() is a blocking method it is waiting for the coroutine to finish. the .join() is more efficient than inserting delays
 // I'm thinking of the join as the coroutine is joining back on to the thread. as in the coroutine is finished. .join()
 // will wait until the coroutine is done, if it hasn't finished.
+// Remember the launch runs asynchronously from the other code. that's why you can get the isActive or isCompleted info
+// it may still be running or waiting on something
 
 fun main4() = runBlocking {
     try {
@@ -187,7 +189,7 @@ suspend fun doWork() {
     println("Exiting co Scope")
 }
 //this code is showing the coroutineScope method. the doWork method will not return/exit until all the coroutines are finished
-// the main thread starts the doWork method starts to run  first hits the scope an the launches both launch methods.
+// the main thread starts the doWork method starts to run  first hits the scope and the launches both launch methods.
 // they take turns on the same thread. as each one hits the delay it suspends free up the thread for other work to be done
 
 fun main8() {
@@ -209,7 +211,7 @@ fun main8() {
 }
 // this is setting my own coroutine scope
 // I initialized the scope using a factory method called MainScope
-// then we pretend that onDock got called and we run a coroutine of launch which is tied to that scope. Inside the launch
+// then we pretend that onDock got called, and we run a coroutine of launch which is tied to that scope. Inside the launch
 // we are just incrementing a counter. until the unDock method gets called when that happens the coroutineScope calls the
 // cancel() method and the coroutine stops the execution. the suspend methods cooperate with the cancel to stop it.
 //
@@ -223,7 +225,7 @@ fun main9() = runBlocking {
     }
     job.join()
 }
-//this example when run demonstrates that all these will run on the main thread
+//this example when ran demonstrates that all these will run on the main thread
 // all three of these print for the println() value
 //main
 //main

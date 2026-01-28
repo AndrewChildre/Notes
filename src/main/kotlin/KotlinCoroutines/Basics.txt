@@ -55,15 +55,15 @@ cancellation is encapsulated to the scope of the coroutine
 
 we use the coroutine scope as the container/boundry to keep the structure
 coroutines are launched within the coroutine scope.
-the scope is the container, it limits the lifetime of the coroutine of it.
-
+the scope is the container, it limits the lifetime of the coroutine of it. This is how we maintain the structured
+concurrency. the scope is the entry and exit points and the coroutines within it run there within that structure
 
 if you want to set up you own scope you would use a factory function
 tieing the scope to a specific element, having the coroutine run only while the element is there
 
 Dispatchers
 deciding witch thread coroutines run on, that is the dispatchers job.
-if you don't specifiy a dispatcher, when you assign scope to your coroutine. it automatically gets assigned the dispatch of
+if you don't specify a dispatcher, when you assign scope to your coroutine. it automatically gets assigned the dispatch of
 its parent. i.e. if you call launch form with in the runBlocking builder and the runBlocking builder is running on main
 then that is where the launch gets dispatched to.
 
