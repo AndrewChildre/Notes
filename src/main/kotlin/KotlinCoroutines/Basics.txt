@@ -1,0 +1,92 @@
+Asynchronous Code
+optimizes running of code with all cores of computer
+has structured running of concurrent code
+concurrency is when an application runs multiple tasks at once
+concurrent code run tasks on threads managed by the os
+coroutines can suspend there execution instead of blocking a thread
+this allows a method to suspend while waiting for data to arrive and another can run on the same thread.
+this allows for effective resource utilization.
+
+two core concepts
+    coroutine builders
+    suspending functions
+
+coroutines allow functions to yield control of the thread instead of the os
+coroutines also provide context for suspend functions. meaning suspend methods can only run with in a coroutine.
+suspend can only run in another suspend method or within the coroutine builder.
+runBlocking{} is a coroutine builder where you can call suspend functions.
+there are other builders as well. launch. async, and coroutineScope.
+
+builders =
+runBlocking -> does block the thread it is running on with in it's scope it only blocks for the coroutines in it to finish.
+launch -> runs asynchronously and doesn't block the thread, doesn't return a value
+the runBLocking is the scope in which you run your suspend methods. it only blocks when all the coroutines inside of it are done
+
+Managing Coroutines
+Starts off by creating a Job object. the object can be used to manage it. like cancel or timeout.
+
+joining to coroutines
+
+
+Coroutine Scope
+    the scope defines where the coroutine runs and what information it has access to.
+    class called CoroutineScope
+    function coroutineScope
+
+    The class you can create an instance of. and has a parameter for the context. Which is what information it has access to
+    you can/do use the scope to launch related coroutines.
+
+    the coroutineScope method
+    is a suspending function, when we call it, it doesn't block threads
+    you would make the coroutineScope and add suspend methods in it to run, and then when all the methods are done
+    the coroutine would return the value. for the rest of the coroutines that need that.
+
+A thread is the worker and a coroutine is the task.
+
+Best Practices
+Contexts, Scopes, Structured Concurrency
+
+Structured Concurrency provides encapsulation for concurrent tasks.
+control flow has clear entry and exit points
+errors get propagated to the parent
+cancellation is encapsulated to the scope of the coroutine
+-> Structured concurrency treats groups of related tasks running in different threads as a single unit of work
+    ensuring that child tasks complete before their parent
+
+we use the coroutine scope as the container/boundry to keep the structure
+coroutines are launched within the coroutine scope.
+the scope is the container, it limits the lifetime of the coroutine of it.
+
+
+if you want to set up you own scope you would use a factory function
+tieing the scope to a specific element, having the coroutine run only while the element is there
+
+Dispatchers
+deciding witch thread coroutines run on, that is the dispatchers job.
+if you don't specifiy a dispatcher, when you assign scope to your coroutine. it automatically gets assigned the dispatch of
+its parent. i.e. if you call launch form with in the runBlocking builder and the runBlocking builder is running on main
+then that is where the launch gets dispatched to.
+
+You can supply a
+dispatcher to the scope.
+There are different dispatchers
+    Default - assumed is CPU bound, meaning not making calls
+    Main - is used mostly on GUI and UI threads, not on console apps/ is not part of the coroutine library you need custom
+    IO - is expandable pool of threads, assumes the coroutine is IO bound i.e. network calls, file system calls
+    Other / custom or libraries
+There are libraries the also provide their own dispatchers
+    Example
+    launch {
+    } <- no dispatcher here it would use its parent
+
+    launch(Dispatchers.Defaut) {
+    } <- specifying the default dispatcher/as in it needs to run on the Default threads
+
+    also when creating a coroutine scope
+    val coroutineScope = CoroutineScope(Dispatchers.IO)
+
+    val scope = MainScope() <- this creates the scope and is using the "Main" dispatcher
+
+
+
+

@@ -1,19 +1,24 @@
-fun main(args: Array<String>) {
+import com.sun.source.tree.Scope
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 
-    val numbers = listOf(10, 23, 3, 42, 51, 123, 6, 8, 99)
+fun main(args: Array<String>) = runBlocking {
 
-    val bigNum = numbers.any{it > 99}
-    println(bigNum)
-
-    val allGreater = numbers.all { it > 50 }
-    println(allGreater)
-
-    val greater50 = numbers.filter { it > 50 }
-    greater50.forEach { println(it) }
-println()
-println()
-println()
-   val sq = greater50.map { it * 2 }.forEach{ println(it) }
+    try {
 
 
+        val ret = withTimeout(100) {
+            repeat(1000) {
+                delay(10)
+                println("><")
+            }
+
+        }
+    } catch (ex: TimeoutCancellationException) {
+        print(ex.message)
+    }
 }
