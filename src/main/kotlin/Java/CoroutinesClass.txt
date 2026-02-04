@@ -1,0 +1,13 @@
+suspending functions do not start coroutines
+suspending functions are functions that can suspend coroutines
+suspending functions are just like regular functions as in they run syncronously (within the asyncrounsouly ran coroutine
+asynchronous coroutine builders launch and async
+blocking coroutines runBlocking
+coroutine scope functions coroutineScope withContext
+cancel() only runs at suspension points
+Dispatchers.Default have as many threads as cores on the machine
+Dispatchers.IO for blocking operations uses a larger thread pool
+
+Flow
+flow{} works like sequence {}
+only flow is suspending

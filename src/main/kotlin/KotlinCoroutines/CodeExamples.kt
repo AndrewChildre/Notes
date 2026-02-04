@@ -1,20 +1,28 @@
 package KotlinCoroutines
 
+import doWork2
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.time.withTimeout
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.Thread.sleep
 import kotlin.concurrent.thread
+import kotlin.random.Random
+import kotlin.system.measureTimeMillis
 import kotlin.time.Duration
 
 fun old_main() {
@@ -44,7 +52,7 @@ suspend fun new_main() {
 }
 // Using coroutines
 //the GlobalScope.launch  is a coroutine that sets the context on which to run GlobalScope is the context right now is using the entire application
-// .launch is a coroutine it doesn't start it's own thread, it runs on whats available
+// .launch is a coroutine it doesn't start its own thread, it runs on whats available
 // delay() is a coroutine method
 // a coroutine method can only be called from within another coroutine
 // i.e. suspend method can only be called within another suspend or other coroutine.
@@ -103,7 +111,7 @@ suspend fun printMessage(txt: String) {
 //the above runs and Finish main will print before Inside Launch
 // because launch starts and runs asynchronously not with in the main thread
 // so main starts, launch runs in the background, and main keeps executing and then launch finishes after main is done.
-// but since its with in the runBlocking context it does wait for it to finish. and not just quit
+// but since its with in the runBlocking context it does have to wait for it to finish. and not just quit
 
 fun main3() = runBlocking {
     val job = launch {
@@ -172,6 +180,7 @@ fun main7() = runBlocking {
     doWork()
     println("doWork Complete")
 }
+
 suspend fun doWork() {
     coroutineScope {
         launch {
@@ -198,17 +207,19 @@ fun main8() {
     fun onDock() {
 
         coroutineScope.launch {
-            while (true){
+            while (true) {
                 delay(1000)
                 count++
                 println("count $count")
             }
         }
     }
-    fun onUndock(){
+
+    fun onUndock() {
         coroutineScope.cancel()
     }
 }
+
 // this is setting my own coroutine scope
 // I initialized the scope using a factory method called MainScope
 // then we pretend that onDock got called, and we run a coroutine of launch which is tied to that scope. Inside the launch
@@ -218,9 +229,9 @@ fun main8() {
 fun main9() = runBlocking {
     println(Thread.currentThread().name)
     runBlocking {
-    println(Thread.currentThread().name)
+        println(Thread.currentThread().name)
     }
-    val job =launch {
+    val job = launch {
         println(Thread.currentThread().name)
     }
     job.join()
@@ -230,6 +241,98 @@ fun main9() = runBlocking {
 //main
 //main
 //main
+// they are all running on the main thread. but they are doing different things. like the launch is running asynchronously
+
+val scope = CoroutineScope(Job())
+fun main10() = runBlocking {
+
+    val jobs = arrayListOf<Job>()
+
+    println("MAIN: ${Thread.currentThread().name}")
+
+    jobs.add(
+        launch {
+            println("DEFAULT: ${Thread.currentThread().name}")
+        }
+    )
+
+    jobs.add(
+        scope.launch {
+            println("SCOPE_DEFAULT: ${Thread.currentThread().name}")
+        }
+    )
+    jobs.add(
+        launch(Dispatchers.IO) {
+            println("I/O DISPATCHER: ${Thread.currentThread().name}")
+        }
+    )
+    jobs.joinAll()
+}
+//In this example the out put is
+//
+//MAIN: main
+//SCOPE_DEFAULT: DefaultDispatcher-worker-1
+//I/O DISPATCHER: DefaultDispatcher-worker-1
+//DEFAULT: main
+// the main is running on the main thread
+// the scope default got dispatched to a worker thread
+// the IO dispatcher got dispatched to a worker thread (it is the same thread as scope one. Just because it was so fast
+// if it was waiting or busy it may have been sent to a different thread. (the os determines that)
+// notice that the worker threads finished before the main did. because they got launched asynchronously
+
+
+suspend fun doWork(message: List<String>) {
+    Thread.sleep(5000)
+    println(message)
+}
+//this will block the thread it is running on, and if that is the main thread in a UI application it would freeze.
+
+suspend fun doWorkWithContext(message: List<String>) = withContext(Dispatchers.IO) {
+    Thread.sleep(5000)
+    println(message)
+}
+// this would be running on a worker thread and not block the main
+
+fun main11() = runBlocking {
+    val d1 = async {
+        val answer = doWork(1000)
+
+    }
+    println(d1.await())
+}
+
+suspend fun doWork(work: Long): Int {
+    delay(work)
+    return Random(0).nextInt()
+}
+
+fun main12(args: Array<String>) = runBlocking {
+    val d1 = async {
+        val answer = doWork(1000)
+        return@async answer
+    }
+    println("ANSWER_ ${d1.await()}")
+}
+// the above is running async the answer is the result of do work
+//we have to use d1.await() to wait until the coroutine is done to get the value
+
+fun main13(args: Array<String>) = runBlocking {
+    val job2 = launch {
+        val time = measureTimeMillis {
+            val r1 = async { doWork2(1000) }
+            val r2 = async { doWork2(2000) }
+
+            println("ANSWER_ ${r1.await() + r2.await()}")
+        }
+        println("It took $time ms")
+    }
+}
+// this is using the async to run both coroutines at once and will only take as long as the slowest coroutine
+//the await() is making sure that the coroutine finishes
+suspend fun doWork2(work: Long): Int {
+    delay(work)
+    return Random(0).nextInt()
+}
 
 
 

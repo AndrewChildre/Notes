@@ -11,6 +11,9 @@ two core concepts
     coroutine builders
     suspending functions
 
+
+Suspend Functions
+when there suspended don't block the thread
 coroutines allow functions to yield control of the thread instead of the os
 coroutines also provide context for suspend functions. meaning suspend methods can only run with in a coroutine.
 suspend can only run in another suspend method or within the coroutine builder.
@@ -74,6 +77,9 @@ There are different dispatchers
     Main - is used mostly on GUI and UI threads, not on console apps/ is not part of the coroutine library you need custom
     IO - is expandable pool of threads, assumes the coroutine is IO bound i.e. network calls, file system calls
     Other / custom or libraries
+
+You can specify the dispatcher in the coroutine builder
+or the coroutine
 There are libraries the also provide their own dispatchers
     Example
     launch {
@@ -83,9 +89,29 @@ There are libraries the also provide their own dispatchers
     } <- specifying the default dispatcher/as in it needs to run on the Default threads
 
     also when creating a coroutine scope
-    val coroutineScope = CoroutineScope(Dispatchers.IO)
 
+    val coroutineScope = CoroutineScope(Dispatchers.IO)
     val scope = MainScope() <- this creates the scope and is using the "Main" dispatcher
+
+    the Dispatchers.Default will only run however many threads as there are number of cores on the machine.
+    Dispatchers.IO will make more threads than there are cores on the machine it is expandable to a certain point.
+    Although they are using the same pool they behave differently.
+
+Coroutine Context
+    A set of properties that are attached to the coroutine, and are available.
+
+withContext
+    tell witch thread to run on because you don't want to block the threads and have things freeze.
+    the suspend method can run with context to help with that
+Scopes help set the boundaries for the coroutines so you're not doing more that needed or canceling more than needed.
+
+Async/Await
+async{} is a coroutine builder like launch{} is one as well
+async returns a Deferred object which is actually from the Job object.
+the Deferred object has await() method to wait for the coroutine to finish
+looks like
+    val d1 = async { doWork }
+    val data = d1.await()
 
 
 

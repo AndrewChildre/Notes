@@ -8,7 +8,7 @@ Higher Order functions and lambdas
 
         A lambda is always surrounded by curly braces, specifies parameters, and provides a body of the lambda which
         contains the actual logic
-        { x: Int, y: Int -> x + y }
+       this is a function literal ->  { x: Int, y: Int -> x + y }
 
     Functions as arguments:
         fun foo(bar: Int, action: (Int)->Unit) {}
@@ -86,4 +86,48 @@ Higher Order functions and lambdas
             }
             lineLogger is called here with a lambda....it does not need the perens when called because of the function parameter
             the curly braces is what calls the lambda it could be lineLogger({println("message")}) but it removes it for the kotlin language
+-----------------------------------------
+Lambdas
 
+this is a function literal ->  { x: Int, y: Int -> x + y } and you can assign it to a veriable
+val sum = { x: Int, y: Int -> x + y } this is a raw lambda
+call it like sum(5, 3) would return 8
+    it defines a function as a value
+    so it looks like this
+    list.filter{it > 10}
+    {it > 10} is the function literal
+    it's passed directly to the filter method as an argument
+    returned from the function
+    stored in a variable
+    used inline
+
+    think of it like
+    println(42)
+    list.map{it * 2}
+    both are expressions passed along immediately
+
+    the opposite of the literal would be a statement like a regular function
+    it doesn't produce a value and cant be passed any where
+
+    when the lambda only has one parameter kotlin allows you to use the "it" keyword
+    instead of list.map{num -> num * 2}
+    use list.map {it * 2}
+    the above is trailing lambda syntax it would normally look like list.map({it * 2})
+    but since it's the last parameter we can lose/move it outside the perens
+
+    so really .map .list .filter methods are higher order methods but everyone calls them lambdas.
+    they are higher order methods because they take a method as a parameter.
+
+    in msl it does have its own .map method in our Outcome class, but otherwise it would use the standard one.
+
+    expression definition = produces a value, can be used right where it appears
+
+    trying to clarify
+    in the method parameter we define the method signature like (String) -> Unit
+    the lambda is the actual call
+    so the definition is
+    fun transformString(input: String, action: (String) -> String) { ... }
+    and the lambda is
+    transformString("frank") {it.reversed()}
+    but remember that a lot of methods only have one parameter that is a method signature
+    so you can do the trailing lambda syntax
